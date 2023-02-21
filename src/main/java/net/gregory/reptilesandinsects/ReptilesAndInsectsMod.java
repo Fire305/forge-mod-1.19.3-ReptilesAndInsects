@@ -1,6 +1,7 @@
 package net.gregory.reptilesandinsects;
 
 import com.mojang.logging.LogUtils;
+import net.gregory.reptilesandinsects.item.ModCreativeModeTab;
 import net.gregory.reptilesandinsects.item.ModItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -45,6 +46,10 @@ public class ReptilesAndInsectsMod
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
         if(event.getTab()== CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItem.WOODEN_NET);
+        }
+
+        if(event.getTab()== ModCreativeModeTab.ReptailAndInsect_TAB){
             event.accept(ModItem.WOODEN_NET);
         }
     }
