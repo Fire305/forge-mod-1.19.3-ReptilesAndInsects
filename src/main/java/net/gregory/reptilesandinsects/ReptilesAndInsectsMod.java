@@ -1,6 +1,9 @@
 package net.gregory.reptilesandinsects;
 
 import com.mojang.logging.LogUtils;
+import net.gregory.reptilesandinsects.item.ModItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -18,18 +21,19 @@ public class ReptilesAndInsectsMod
 {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "reptilesandinsects";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
+
     public ReptilesAndInsectsMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Register the commonSetup method for modloading
+        ModItem.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
-        // Register ourselves for server and other game events we are interested in
+
         MinecraftForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
     }
 
@@ -40,7 +44,9 @@ public class ReptilesAndInsectsMod
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
-
+        if(event.getTab()== CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItem.WOODEN_NET);
+        }
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
